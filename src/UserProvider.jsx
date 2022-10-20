@@ -1,7 +1,7 @@
-import React, {useState, useContext} from 'react';
+import  {createContext ,useState, useContext} from 'react';
 
-const userContext = React.createContext();
-const userToggleContext = React.createContext();
+const userContext = createContext();
+const userToggleContext = createContext();
 
 export function useUserContext() {
     return useContext(userContext)
@@ -10,8 +10,7 @@ export function useUserToggleContext() {
     return useContext(userToggleContext)
 }
 
-//(props) , props.children
-export function UserProvider([children]) {
+export function UserProvider(props) {
 const [user, setUser] = useState(null);
 const changeLogIn = () => {
     if (user) {
@@ -25,7 +24,7 @@ const changeLogIn = () => {
   };
 return (<userContext.Provider value={user}>
     <userToggleContext.Provider value={changeLogIn}>
-        {children}
+        {props.children}
     </userToggleContext.Provider>
 </userContext.Provider>)
 }
